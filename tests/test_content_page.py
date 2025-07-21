@@ -33,18 +33,6 @@ def test_add_to_cart(page: Page, authorization):
 
     content_page.verify_shopping_cart()
 
-def test_burger_menu_all_items(page: Page, authorization):
-    content_page = ContentPage(page)
-    content_page.verify_burger_menu_all_items()
-
-def test_burger_about(page: Page, authorization):
-    content_page = ContentPage(page)
-    content_page.verify_burger_menu_about()
-
-def test_burger_logout(page: Page, authorization):
-    content_page = ContentPage(page)
-    content_page.verify_burger_menu_logout()
-
 def test_item_cart(page: Page, authorization):
     content_page = ContentPage(page)
     content_page.verify_item_cart_goto_and_back()

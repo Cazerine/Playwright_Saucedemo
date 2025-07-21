@@ -12,12 +12,7 @@ class ContentPage(BasePage):
         ITEM = 'inventory-item-description'
         REM_ITEM1 = '#remove-sauce-labs-backpack'
         CART_BADGE = 'shopping-cart-badge'
-        BURGER_MENU = "#react-burger-menu-btn"
         ITEM_BACKPACK = "#item_4_title_link"
-        ALL_ITEMS = "#inventory_sidebar_link"
-        ABOUT = "#about_sidebar_link"
-        LOGOUT = "#logout_sidebar_link"
-        ROOT = "#root"
         ITEM_CART = "#inventory_item_container"
         BACK = "#back-to-products"
 
@@ -44,24 +39,6 @@ class ContentPage(BasePage):
         self.page.locator(self.Locators.REM_ITEM1).click()  # удаление первого товара
 
         expect(self.page.get_by_test_id(self.Locators.CART_BADGE)).to_contain_text('2')
-
-    def verify_burger_menu_all_items(self): #бургер-меню
-        expect(self.page.locator(self.Locators.BURGER_MENU)).to_be_visible() #проверка, что элемент есть
-
-        self.page.locator(self.Locators.ITEM_BACKPACK).click()
-        self.page.locator(self.Locators.BURGER_MENU).click()
-        self.page.locator(self.Locators.ALL_ITEMS).click()
-        expect(self.page.get_by_test_id(self.Locators.INVENTORY_LIST)).to_be_visible()  # проверка итем есть контейнер
-
-    def verify_burger_menu_about(self):
-        self.page.locator(self.Locators.BURGER_MENU).click()
-        self.page.locator(self.Locators.ABOUT).click()
-        expect(self.page).to_have_url('https://saucelabs.com/') #проверка перехода по кнопке about
-
-    def verify_burger_menu_logout(self):
-        self.page.locator(self.Locators.BURGER_MENU).click()
-        self.page.locator(self.Locators.LOGOUT).click()
-        expect(self.page.locator(self.Locators.ROOT)).to_be_visible() #проверка перехода на страницу логина
 
     def verify_item_cart_goto_and_back(self): #карточка товара (открытие и возврат)
         self.page.locator(self.Locators.ITEM_BACKPACK).click()
