@@ -12,28 +12,41 @@ def authorization(page):
 
     page.close()
 
-def test_name_filter(page: Page, authorization):
+def test_goto_content_page(page: Page, authorization):
     content_page = ContentPage(page)
-    content_page.filter()
+    content_page.verify_content_page_open()
+
+@pytest.mark.parametrize("option, expected_text", [
+     ('az', "Name (A to Z)"),
+     ('za', "Name (Z to A)"),
+     ('lohi', "Price (low to high)"),
+     ('hilo', "Price (high to low)"),
+ ])
+def test_verify_filter(page: Page, authorization, option, expected_text):
+    content_page = ContentPage(page)
+    content_page.verify_filter(option, expected_text)
 
 def test_add_to_cart(page: Page, authorization):
     content_page = ContentPage(page)
-    content_page.shopping_cart()
+    for i in range (3):
+        content_page.add_item_to_cart(i) #добавили в корзину 3 товара
+
+    content_page.verify_shopping_cart()
 
 def test_burger_menu_all_items(page: Page, authorization):
     content_page = ContentPage(page)
-    content_page.burger_menu_all_items()
+    content_page.verify_burger_menu_all_items()
 
 def test_burger_about(page: Page, authorization):
     content_page = ContentPage(page)
-    content_page.burger_menu_about()
+    content_page.verify_burger_menu_about()
 
 def test_burger_logout(page: Page, authorization):
     content_page = ContentPage(page)
-    content_page.burger_menu_logout()
+    content_page.verify_burger_menu_logout()
 
 def test_item_cart(page: Page, authorization):
     content_page = ContentPage(page)
-    content_page.item_cart()
+    content_page.verify_item_cart_goto_and_back()
 
 #pytest -s -v test_content_page.py

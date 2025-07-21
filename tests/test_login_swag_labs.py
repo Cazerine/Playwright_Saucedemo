@@ -16,10 +16,6 @@ def test_authorization_multiple_login(page: Page, login, password, valid):
     login_page = LoginPage(page)
     login_page.login(login, password, valid)
 
-def test_content(page: Page):
-    login_page = LoginPage(page)
-    login_page.catalog_page()
-
 # pytest -s -v test_login_swag_labs.py
 
 
