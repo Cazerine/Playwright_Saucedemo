@@ -4,7 +4,6 @@ from ..pages.login_page import LoginPage
 
 
 class ContentPage(BasePage):
-    #LOGO = '.app_logo'
     SUBTITLE = 'title'
     FILTER = 'active-option'
     INVENTORY_LIST = 'inventory-list'
