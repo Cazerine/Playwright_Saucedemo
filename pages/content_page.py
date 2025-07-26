@@ -5,9 +5,9 @@ from ..pages.login_page import LoginPage
 
 class ContentPage(BasePage):
     SUBTITLE = 'title'
-    FILTER = 'active-option'
+    FILTER_BTN = 'active-option'
     INVENTORY_LIST = 'inventory-list'
-    SORT = 'product-sort-container'
+    SORT_OPTION = 'product-sort-container'
     ITEM = 'inventory-item-description'
     REM_ITEM1 = '#remove-sauce-labs-backpack'
     CART_BADGE = 'shopping-cart-badge'
@@ -18,15 +18,16 @@ class ContentPage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
 
-    def verify_content_page_open(self):
-        expect(self.page.locator(LoginPage.LOGO)).to_be_visible() #проверка заголовка PageLocators.LOGO
-        expect(self.page.get_by_test_id(self.SUBTITLE)).to_contain_text('Products') #подзаголовок продактс
-        expect(self.page.get_by_test_id(self.FILTER)).to_be_visible() #лого фильтров data-test="product-sort-container"
-        expect(self.page.get_by_test_id(self.INVENTORY_LIST)).to_be_visible() #проверка итем есть контейнер id="inventory_container"
+    # def verify_content_page_open(self):
+
+        # expect(self.page.locator(LoginPage.LOGO)).to_be_visible() #проверка заголовка PageLocators.LOGO
+        # expect(self.page.get_by_test_id(self.SUBTITLE)).to_contain_text('Products') #подзаголовок продактс
+        # expect(self.page.get_by_test_id(self.FILTER_BTN)).to_be_visible() #лого фильтров data-test="product-sort-container"
+        # expect(self.page.get_by_test_id(self.INVENTORY_LIST)).to_be_visible() #проверка итем есть контейнер id="inventory_container"
 
     def verify_filter(self, option, expected_text): #фильтры
-        self.page.get_by_test_id(self.SORT).select_option(option)
-        expect(self.page.get_by_test_id(self.FILTER)).to_contain_text(expected_text)
+        self.page.get_by_test_id(self.SORT_OPTION).select_option(option)
+        expect(self.page.get_by_test_id(self.FILTER_BTN)).to_contain_text(expected_text)
 
     def add_item_to_cart(self, number: int):
         item = self.page.get_by_test_id(self.ITEM).nth(number)

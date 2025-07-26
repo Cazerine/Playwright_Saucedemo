@@ -13,13 +13,12 @@ def test_checkout_flow(page: Page, count=0):
     content_page.add_item_to_cart(count) #добавили один товар
 
     checkout_page = CheckoutPage(page)
-    checkout_page.checkout_goto()
+    checkout_page.goto_checkout()
+    checkout_page.fill_form('Test', 'Test', '000000')
+    checkout_page.verify_checkout()
 
-
-
-
-
-
+    checkout_page.isLoaded_LOGO(LoginPage.LOGO)  # проверяем, что страница с контентом загрузилась
+    checkout_page.isLoaded(ContentPage.FILTER_BTN)
+    checkout_page.isLoaded(ContentPage.INVENTORY_LIST)
 
 # pytest -s -v test_checkout_page.py
-

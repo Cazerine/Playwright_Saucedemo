@@ -1,5 +1,5 @@
 import pytest
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 from ..pages.content_page import ContentPage
 from ..pages.login_page import LoginPage
 
@@ -15,7 +15,9 @@ def authorization(page):
 
 def test_goto_content_page(page: Page, authorization):
     content_page = ContentPage(page)
-    content_page.verify_content_page_open()
+    content_page.isLoaded_LOGO(LoginPage.LOGO)
+    content_page.isLoaded(ContentPage.FILTER_BTN)
+    content_page.isLoaded(ContentPage.INVENTORY_LIST)
 
 @pytest.mark.parametrize("option, expected_text", [
      ('az', "Name (A to Z)"),
