@@ -2,6 +2,7 @@ from playwright.sync_api import Page, expect
 
 
 class BasePage():
+    LOGO = '.app_logo'
     def __init__(self, page: Page):
         self.page = page
         self.url = 'https://www.saucedemo.com'
@@ -10,13 +11,14 @@ class BasePage():
         url = 'https://www.saucedemo.com/'
         self.page.goto(url)
 
-    def isLoaded_LOGO(self, element):
-        expect(self.page.locator(element)).to_be_visible()
+    def isLoaded_LOGO(self):
+        expect(self.page.locator(self.LOGO)).to_be_visible()
 
     def isLoaded(self, element):
-        expect(self.page.get_by_test_id(element)).to_be_visible() #лого фильтров data-test="product-sort-container"
-        expect(self.page.get_by_test_id(element)).to_be_visible() #проверка итем есть контейнер id="inventory_container"
+        expect(self.page.get_by_test_id(element)).to_be_visible()
 
+    # def isLoaded_by_locator(self, element):
+    #     expect(self.page.locator(element)).to_be_visible()
 
     def get_title(self):
         return self.page.title()

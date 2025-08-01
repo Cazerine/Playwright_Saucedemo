@@ -18,13 +18,6 @@ class ContentPage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
 
-    # def verify_content_page_open(self):
-
-        # expect(self.page.locator(LoginPage.LOGO)).to_be_visible() #проверка заголовка PageLocators.LOGO
-        # expect(self.page.get_by_test_id(self.SUBTITLE)).to_contain_text('Products') #подзаголовок продактс
-        # expect(self.page.get_by_test_id(self.FILTER_BTN)).to_be_visible() #лого фильтров data-test="product-sort-container"
-        # expect(self.page.get_by_test_id(self.INVENTORY_LIST)).to_be_visible() #проверка итем есть контейнер id="inventory_container"
-
     def verify_filter(self, option, expected_text): #фильтры
         self.page.get_by_test_id(self.SORT_OPTION).select_option(option)
         expect(self.page.get_by_test_id(self.FILTER_BTN)).to_contain_text(expected_text)

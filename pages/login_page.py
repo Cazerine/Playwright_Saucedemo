@@ -3,7 +3,6 @@ from playwright.sync_api import Page, expect
 
 
 class LoginPage(BasePage):
-    LOGO = '.app_logo'
     ERROR = 'error'
 
     LOGIN_INPUT = '#user-name'
@@ -23,7 +22,7 @@ class LoginPage(BasePage):
         self.authorize(login, password)
 
         if valid:
-            expect(self.page.locator(self.LOGO)).to_contain_text('Swag Labs')
+            self.isLoaded_LOGO()
         else:
             expect(self.page.get_by_test_id(self.ERROR)).to_contain_text('Epic sadface')
 
