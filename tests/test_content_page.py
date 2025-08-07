@@ -1,23 +1,9 @@
 import pytest
-from playwright.sync_api import Page
 from ..pages.content_page import ContentPage
-from ..pages.login_page import LoginPage
 
-@pytest.fixture
-def authorization(page):
-    content_page = LoginPage(page)
-    content_page.open_page()
-    content_page.authorize("standard_user", "secret_sauce")
-
-    yield
-
-    page.close()
-
-def test_goto_content_page(page: Page, authorization):
-    content_page = ContentPage(page)
-    content_page.isLoaded_LOGO(LoginPage.LOGO)
-    content_page.isLoaded(ContentPage.FILTER_BTN)
-    content_page.isLoaded(ContentPage.INVENTORY_LIST)
+def test_goto_content_page(authorized_page):
+    content_page = ContentPage(authorized_page)
+    content_page.isLoaded()
 
 @pytest.mark.parametrize("option, expected_text", [
      ('az', "Name (A to Z)"),
@@ -25,19 +11,21 @@ def test_goto_content_page(page: Page, authorization):
      ('lohi', "Price (low to high)"),
      ('hilo', "Price (high to low)"),
  ])
-def test_verify_filter(page: Page, authorization, option, expected_text):
-    content_page = ContentPage(page)
+def test_verify_filter(authorized_page, option, expected_text):
+    content_page = ContentPage(authorized_page)
     content_page.verify_filter(option, expected_text)
 
-def test_add_to_cart(page: Page, authorization, count = 3):
-    content_page = ContentPage(page)
+def test_add_to_cart(authorized_page, count = 3):
+    content_page = ContentPage(authorized_page)
     for i in range (count):
         content_page.add_item_to_cart(i) #добавили в корзину 3 товара
 
     content_page.verify_shopping_cart()
 
-def test_item_card(page: Page, authorization):
-    content_page = ContentPage(page)
+def test_item_card(authorized_page):
+    content_page = ContentPage(authorized_page)
     content_page.verify_item_card_goto_and_back()
+
+
 
 #pytest -s -v test_content_page.py

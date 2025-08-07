@@ -1,7 +1,6 @@
 from .base_page import BasePage
 from playwright.sync_api import Page, expect
 
-
 class LoginPage(BasePage):
     ERROR = 'error'
 
@@ -22,7 +21,7 @@ class LoginPage(BasePage):
         self.authorize(login, password)
 
         if valid:
-            self.isLoaded_LOGO()
+            self.isLoaded()
         else:
             expect(self.page.get_by_test_id(self.ERROR)).to_contain_text('Epic sadface')
 

@@ -1,7 +1,6 @@
 from .base_page import BasePage
 from playwright.sync_api import Page, expect
-from ..pages.login_page import LoginPage
-
+from ..pages.cart_page import CartPage
 
 class ContentPage(BasePage):
     SUBTITLE = 'title'
@@ -14,9 +13,14 @@ class ContentPage(BasePage):
     ITEM_BACKPACK = "#item_4_title_link"
     ITEM_CART = "#inventory_item_container"
     BACK = "#back-to-products"
+    INVENTORY_CNTR = "inventory-container"
+    SHOPPING_CART = "#shopping_cart_container"
 
     def __init__(self, page: Page):
         super().__init__(page)
+
+    def isLoaded(self):
+        expect(self.page.get_by_test_id(self.INVENTORY_CNTR)).to_be_visible()
 
     def verify_filter(self, option, expected_text): #фильтры
         self.page.get_by_test_id(self.SORT_OPTION).select_option(option)
@@ -38,7 +42,12 @@ class ContentPage(BasePage):
         expect(self.page.locator(self.ITEM_CART)).to_be_visible() #проверка перехода на карточку товара
 
         self.page.locator(self.BACK).click()
-        expect(self.page.get_by_test_id(self.INVENTORY_LIST)).to_be_visible()  # проверка итем есть контейнер
+        self.isLoaded()
+        #expect(self.page.get_by_test_id(self.INVENTORY_LIST)).to_be_visible()  # проверка итем есть контейнер
+
+    def open_cart(self):
+        self.page.locator(self.SHOPPING_CART).click() # SHOPP CART FUNC
+        return CartPage(self.page)
 
 
 
