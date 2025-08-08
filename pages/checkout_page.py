@@ -1,6 +1,7 @@
 import pytest
 from playwright.sync_api import Page, expect
 from .base_page import BasePage
+from ..pages.confirmation_page import ConfirmationPage
 
 class CheckoutPage(BasePage):
     ITEM_NAME = "inventory-item-name"
@@ -8,11 +9,13 @@ class CheckoutPage(BasePage):
 
     FINISH_BTN = "#finish"
 
+    TITLE = "title"
+
     def __init__(self, page: Page):
         super().__init__(page)
 
-    def isLoaded(self, element):
-        expect(self.page.get_by_test_id(element)).to_be_visible()
+    def isLoaded(self):
+        expect(self.page.get_by_test_id(self.TITLE)).to_contain_text("Checkout: Overview")
 
     def get_item_name(self, number):
         return self.page.get_by_test_id(self.ITEM_NAME).nth(number).text_content()
@@ -34,6 +37,7 @@ class CheckoutPage(BasePage):
 
     def finish_checkout(self):
         self.page.locator(self.FINISH_BTN).click()
+        return ConfirmationPage(self.page)
 
 
 

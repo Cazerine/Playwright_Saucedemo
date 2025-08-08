@@ -4,6 +4,7 @@ from ..pages.form_page import FormPage
 
 class CartPage(BasePage):
     CHECKOUT_BTN = "#checkout"
+    TITLE = "title"
 
     def __init__(self, page: Page):
         super().__init__(page)
@@ -11,4 +12,7 @@ class CartPage(BasePage):
     def goto_checkout(self):
         self.page.locator(self.CHECKOUT_BTN).click()
         return FormPage(self.page)
+
+    def isLoaded(self):
+        expect(self.page.get_by_test_id(self.TITLE)).to_contain_text("Your Cart")
 

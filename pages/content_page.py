@@ -13,14 +13,14 @@ class ContentPage(BasePage):
     ITEM_BACKPACK = "#item_4_title_link"
     ITEM_CART = "#inventory_item_container"
     BACK = "#back-to-products"
-    INVENTORY_CNTR = "inventory-container"
+    ITEM_CONTAINER = "inventory-container"
     SHOPPING_CART = "#shopping_cart_container"
 
     def __init__(self, page: Page):
         super().__init__(page)
 
     def isLoaded(self):
-        expect(self.page.get_by_test_id(self.INVENTORY_CNTR)).to_be_visible()
+        expect(self.page.get_by_test_id(self.ITEM_CONTAINER)).to_be_visible()
 
     def verify_filter(self, option, expected_text): #фильтры
         self.page.get_by_test_id(self.SORT_OPTION).select_option(option)
