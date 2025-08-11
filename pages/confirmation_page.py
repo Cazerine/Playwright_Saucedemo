@@ -17,8 +17,8 @@ class ConfirmationPage(BasePage):
     def verify_success_message(self):
         self.isLoaded()
 
-    def goto_content_page(self):
-        from ..pages.content_page import ContentPage
-
-        self.page.locator(self.BACK_HOME_BTN).click()
-        return ContentPage(self.page)
+    # def goto_content_page(self):
+    #     from ..pages.content_page import ContentPage
+    #
+    #     self.page.locator(self.BACK_HOME_BTN).click()
+    #     return ContentPage(self.page)
