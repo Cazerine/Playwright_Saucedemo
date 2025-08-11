@@ -23,17 +23,17 @@ class CheckoutPage(BasePage):
     def get_item_price(self, number):
         return self.page.get_by_test_id(self.ITEM_PRICE).nth(number).text_content()
 
-    def get_name_from_item_card(self, number = 0):
+    def get_name_from_item_card(self, number):
         name_added = self.get_item_name(number)
         return name_added
 
-    def get_price_from_item_card(self, number=0):
+    def get_price_from_item_card(self, number):
         price_added = str(self.get_item_price(number))
         return price_added
 
-    def verify_checkout(self):
-        expect(self.page.get_by_test_id(self.ITEM_NAME)).to_contain_text(self.get_name_from_item_card(0))  # проверка названия
-        expect(self.page.get_by_test_id(self.ITEM_PRICE)).to_contain_text(self.get_price_from_item_card(0))  # проверка цены
+    def verify_checkout(self, number):
+        expect(self.page.get_by_test_id(self.ITEM_NAME)).to_contain_text(self.get_name_from_item_card(number))  # проверка названия
+        expect(self.page.get_by_test_id(self.ITEM_PRICE)).to_contain_text(self.get_price_from_item_card(number))  # проверка цены
 
     def finish_checkout(self):
         self.page.locator(self.FINISH_BTN).click()
