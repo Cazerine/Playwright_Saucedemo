@@ -1,7 +1,9 @@
 import pytest
 from playwright.sync_api import Page
 from ..pages.login_page import LoginPage
+import allure
 
+@allure.feature('Login')
 @pytest.mark.parametrize("login, password, valid", [
      ("standard_user", 'secret_sauce', True),
      ("locked_out_user", 'secret_sauce', False),

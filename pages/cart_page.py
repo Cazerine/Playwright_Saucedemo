@@ -1,6 +1,7 @@
 from playwright.sync_api import Page, expect
 from .base_page import BasePage
 from ..pages.form_page import FormPage
+import allure
 
 class CartPage(BasePage):
     CHECKOUT_BTN = "#checkout"
@@ -14,5 +15,6 @@ class CartPage(BasePage):
         return FormPage(self.page)
 
     def isLoaded(self):
-        expect(self.page.get_by_test_id(self.TITLE)).to_contain_text("Your Cart")
+        with allure.step('Check downloading page'):
+            expect(self.page.get_by_test_id(self.TITLE)).to_contain_text("Your Cart")
 

@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 from .base_page import BasePage
+import allure
 
 
 class ConfirmationPage(BasePage):
@@ -12,10 +13,12 @@ class ConfirmationPage(BasePage):
         super().__init__(page)
 
     def isLoaded(self):
-        expect(self.page.get_by_test_id(self.TITLE)).to_contain_text("Checkout: Complete!")
+        with allure.step('Check downloading page'):
+            expect(self.page.get_by_test_id(self.TITLE)).to_contain_text("Checkout: Complete!")
 
     def verify_success_message(self):
-        self.isLoaded()
+        with allure.step('Verify success message'):
+            self.isLoaded()
 
     def goto_content_page(self):
         from ..pages.content_page import ContentPage

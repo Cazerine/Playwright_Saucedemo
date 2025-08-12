@@ -1,6 +1,7 @@
-from playwright.sync_api import Page
 from ..pages.content_page import ContentPage
+import allure
 
+@allure.story('Flow')
 def test_checkout_flow(authorized_page):
     content_page = ContentPage(authorized_page)
     content_page.add_item_to_cart(0) #добавили первый товар
